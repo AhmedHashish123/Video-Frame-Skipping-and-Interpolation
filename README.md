@@ -1,0 +1,2 @@
+# Video-Frame-Skipping-and-Interpolation
+This project will consist of two main modules. One module takes a video as an input and outputs a smaller sized video with less frames and a text file indicating the indices of the removed frames, and the other module takes this smaller video and the text file and interpolates the missing frames. This can be really handy for uploading videos quickly or transferring a small sized video to another pc then interpolating the missing frames to get a video that is close to the original.
