@@ -31,12 +31,11 @@ def fun1(inputVideo,outputVideo,outputAudio,loopCounter,finaOutputVideo,props,te
         print("Something went wrong while writing the final video")
 
 ####################Detedcting and removing redundant frames####################
-def fun2(frame_list,skipped_frames_list,resizer,similarityThreshold,numberOfFifth,loopCounter,splitter,fileName):
+def fun2(frame_list,skipped_frames_list,resizer,similarityThreshold,numberOfFifth,previousFrames,loopCounter,splitter,fileName):
     try:
         i=0
         removed_frames_list=[]
         while i < int(len(frame_list)):
-            #print(i5)
             if(i>0 and i<len(frame_list)-1):
                 gray1 = cv2.cvtColor(frame_list[i-1], cv2.COLOR_BGR2GRAY)
                 gray2 = cv2.cvtColor(frame_list[i], cv2.COLOR_BGR2GRAY)
@@ -89,15 +88,15 @@ def fun2(frame_list,skipped_frames_list,resizer,similarityThreshold,numberOfFift
                     i+=2
                     time.sleep(0.0)
                 else:
-                    i+=2
+                    i+=1
                     time.sleep(0.0)
             else:
-                i+=2
+                i+=1
                 time.sleep(0.0)
         with open(fileName, 'a') as file:
             for j in range(len(frame_list)):
                 if j in removed_frames_list:
-                    file.write("%i\n" % ((numberOfFifth*int(len(frame_list)))+((loopCounter-1)*splitter)+j))
+                    file.write("%i\n" % ((previousFrames)+((loopCounter-1)*splitter)+j))
                 else:
                     skipped_frames_list.append(frame_list[j])
     except:
@@ -109,7 +108,7 @@ if __name__ == "__main__":
         inputVideo=str(sys.argv[1])
         outputVideo="Output Video"
         outputAudio="Audio.mp3"
-        finalOutputVideo="Final11.mp4"
+        finalOutputVideo="Final.mp4"
         tempFolder="Folder"
         frameIndicesFile="Skipped_Frames.txt"
         os.mkdir(tempFolder)
@@ -170,17 +169,17 @@ if __name__ == "__main__":
             similarityThreshold = 7
             fileName = frameIndicesFile
 
-            print(len(frame_list[0:int(len(frame_list)/5)]))
-            print(len(frame_list[int(len(frame_list)/5):int((len(frame_list)/5)*2)]))
-            print(len(frame_list[int((len(frame_list)/5)*2):int((len(frame_list)/5)*3)]))
-            print(len(frame_list[int((len(frame_list)/5)*3):int((len(frame_list)/5)*4)]))
-            print(len(frame_list[int((len(frame_list)/5)*4):int((len(frame_list)/5)*5)]))
+            previousFrames1 = 0
+            previousFrames2 = previousFrames1 + len(frame_list[0:int(len(frame_list)/5)])
+            previousFrames3 = previousFrames2 + len(frame_list[int(len(frame_list)/5):int((len(frame_list)/5)*2)])
+            previousFrames4 = previousFrames3 + len(frame_list[int((len(frame_list)/5)*2):int((len(frame_list)/5)*3)])
+            previousFrames5 = previousFrames4 + len(frame_list[int((len(frame_list)/5)*3):int((len(frame_list)/5)*4)])
 
-            t1 = threading.Thread(target=fun2,args=(frame_list[0:int(len(frame_list)/5)],skipped_frames_list1,resizer,similarityThreshold,0,loopCounter,splitter,fileName,))
-            t2 = threading.Thread(target=fun2,args=(frame_list[int(len(frame_list)/5):int((len(frame_list)/5)*2)],skipped_frames_list2,resizer,similarityThreshold,1,loopCounter,splitter,fileName,))
-            t3 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*2):int((len(frame_list)/5)*3)],skipped_frames_list3,resizer,similarityThreshold,2,loopCounter,splitter,fileName,))
-            t4 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*3):int((len(frame_list)/5)*4)],skipped_frames_list4,resizer,similarityThreshold,3,loopCounter,splitter,fileName,))
-            t5 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*4):int((len(frame_list)/5)*5)],skipped_frames_list5,resizer,similarityThreshold,4,loopCounter,splitter,fileName,))
+            t1 = threading.Thread(target=fun2,args=(frame_list[0:int(len(frame_list)/5)],skipped_frames_list1,resizer,similarityThreshold,0,previousFrames1,loopCounter,splitter,fileName,))
+            t2 = threading.Thread(target=fun2,args=(frame_list[int(len(frame_list)/5):int((len(frame_list)/5)*2)],skipped_frames_list2,resizer,similarityThreshold,1,previousFrames2,loopCounter,splitter,fileName,))
+            t3 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*2):int((len(frame_list)/5)*3)],skipped_frames_list3,resizer,similarityThreshold,2,previousFrames3,loopCounter,splitter,fileName,))
+            t4 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*3):int((len(frame_list)/5)*4)],skipped_frames_list4,resizer,similarityThreshold,3,previousFrames4,loopCounter,splitter,fileName,))
+            t5 = threading.Thread(target=fun2,args=(frame_list[int((len(frame_list)/5)*4):int((len(frame_list)/5)*5)],skipped_frames_list5,resizer,similarityThreshold,4,previousFrames5,loopCounter,splitter,fileName,))
             t1.start()
             t2.start()
             t3.start()
@@ -196,7 +195,6 @@ if __name__ == "__main__":
             skipped_frames_list.extend(skipped_frames_list3)
             skipped_frames_list.extend(skipped_frames_list4)
             skipped_frames_list.extend(skipped_frames_list5)
-            ##################Removing redundant frames and writing the indexes of the removed frames to a file#################
             
             
 
