@@ -110,7 +110,7 @@ if __name__ == "__main__":
         outputAudio="Audio.mp3"
         finalOutputVideo="Final.mp4"
         tempFolder="Folder"
-        frameIndicesFile="Skipped_Frames.txt"
+        frameIndicesFile="Skipped.txt"
         os.mkdir(tempFolder)
         #############Reading a video and extracting video info (I care about the bitrate and fps) and getting the while loop threshold#################
         start_time=time.time()
