@@ -6,3 +6,6 @@ Simply open a terminal in the same location as the python file and write "python
 
 # To run Interpolate_1.py
 Simply open a terminal in the same location as the python file and write "python Interpolate_1.py video.mp4", where "video.mp4" is the name of the video file that was produced from the skipping module. You can change this name as you like.
+
+# To run Interpolate_2.py
+Simply open a terminal in the same location as the python file and write "python Interpolate_2.py video.mp4", where "video.mp4" is the name of the video file that was produced from the skipping module. You can change this name as you like.
