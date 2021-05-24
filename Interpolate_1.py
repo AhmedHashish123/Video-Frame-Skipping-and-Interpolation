@@ -107,7 +107,6 @@ if __name__ == "__main__":
         skipped_frames_indices = np.sort(skipped_frames_indices)
 
         total_frames = len(skipped_frames_indices) + limit
-        print(total_frames)
         #####################Adjusting the frames splitting threshold for memory###############################
         width = int(video1.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(video1.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -137,7 +136,6 @@ if __name__ == "__main__":
                 for i in range(len(frame_list)):
                     out.write(frame_list[i])
                 out.release()
-                print(len(frame_list))
                 frame_list=[]
                 counter = 0
             if(index<len(skipped_frames_indices)):
@@ -174,7 +172,6 @@ if __name__ == "__main__":
         #################Writing any remaining frames#################
         if(len(frame_list)>0):
             loop_counter+=1
-            print(len(frame_list))
             out = cv2.VideoWriter(""+tempFolder+"/"+outputVideo+""+str(loop_counter)+""+".mp4",cv2.VideoWriter_fourcc(*'mp4v'), fps, (len(frame_list[0][0]), len(frame_list[0])))
             for i in range(len(frame_list)):
                 out.write(frame_list[i])
