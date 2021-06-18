@@ -194,7 +194,7 @@ if __name__ == "__main__":
                         interpolated_frame = cv2.GaussianBlur(interpolated_frame,(3,3),0)
                         interpolated_frame = interpolated_frame.astype(np.uint8) #To write the frame correctly using video writer
                         frame1 = frame1.astype(np.uint8)
-                        frame2 = frame1.astype(np.uint8)
+                        frame2 = frame2.astype(np.uint8)
                         final_int = (interpolated_frame*(1/3))+(frame1*(1/3)) + (frame2*(1/3)) 
                         final_int = final_int.astype(np.uint8)
                         frame_list.append(final_int)
