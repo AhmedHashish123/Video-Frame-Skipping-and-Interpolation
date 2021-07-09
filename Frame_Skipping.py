@@ -199,7 +199,7 @@ if __name__ == "__main__":
             
 
             #############################Producing an output video without sound################################
-            out = cv2.VideoWriter(""+tempFolder+"/"+outputVideo+""+str(loopCounter)+""+".mp4",cv2.VideoWriter_fourcc(*'mp4v'), fps, (len(skipped_frames_list[0][0]), len(skipped_frames_list[0])))
+            out = cv2.VideoWriter(""+tempFolder+"/"+outputVideo+""+str(loopCounter)+""+".mp4",cv2.VideoWriter_fourcc(*'mp4v'), fps, (len(skipped_frames_list[1]), len(skipped_frames_list[0])))
             for i in range(len(skipped_frames_list)):
                 out.write(skipped_frames_list[i])
             out.release()
